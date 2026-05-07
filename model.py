@@ -1,29 +1,14 @@
-from sqlmodel import Field, SQLModel
-
+from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from datetime import datetime
+from db import Base
 
+class Animal(Base):
+    __tablename__ = "animals"
 
-class Dog(SQLModel, table = True):
-    __tablename__ = "Dogs"
-
-    created: datetime = Field(
-        default_factory=datetime.utcnow(),
-        sa_column_kwargs={"server_default": "NOW()"}
-    )
-
-class Sticker(SQLModel, table = True):
-    __tablename__ = "Stickers"
-
-    created: datetime = Field(
-        default_factory=datetime.utcnow(),
-        sa_column_kwargs={"server_default": "NOW()"}
-    )
-
-
-class Book(SQLModel, table = True):
-    __tablename__ = "Books"
-
-    created: datetime = Field(
-        default_factory=datetime.utcnow(),
-        sa_column_kwargs={"server_default": "NOW()"}
-    )
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    size = Column(String, nullable=False)
+    dangerous = Column(Boolean, default=False)
+    sterilized = Column(Boolean, default=False)
+    breed = Column(String, nullable=False)
+    created = Column(DateTime, default=datetime.utcnow)
